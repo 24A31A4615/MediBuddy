@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical Records — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    .page-breadcrumb { font-size: 0.82rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .page-breadcrumb a { color: var(--green); text-decoration: none; }
+
+    .records-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .records-top h1 { font-size: 2rem; }
+    .records-top p { color: var(--mid); margin-top: 0.4rem; }
+
+    .rec-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .rec-tab { padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid var(--border); font-size: 0.85rem; cursor: pointer; background: white; transition: all 0.2s; }
+    .rec-tab.active { background: var(--green); color: white; border-color: var(--green); }
+
+    .records-table { background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+    .rec-row { display: flex; align-items: center; gap: 1.25rem; padding: 1.1rem 1.5rem; border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: pointer; }
+    .rec-row:last-child { border-bottom: none; }
+    .rec-row:hover { background: var(--cream); }
+    .rec-row-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .ri-blue { background: #e3f2fd; }
+    .ri-green { background: var(--green-pale); }
+    .ri-orange { background: var(--saffron-light); }
+    .ri-red { background: #fde8e8; }
+    .rec-row-info { flex: 1; }
+    .rec-row-name { font-weight: 600; font-size: 0.92rem; }
+    .rec-row-meta { font-size: 0.78rem; color: var(--mid); margin-top: 0.2rem; }
+    .rec-row-right { text-align: right; }
+    .rec-row-date { font-size: 0.8rem; color: var(--mid); }
+    .rec-row-doc { font-size: 0.78rem; color: var(--green); font-weight: 500; margin-top: 0.2rem; }
+    .rec-row-actions { display: flex; gap: 0.5rem; margin-top: 0.35rem; justify-content: flex-end; }
+    .rec-btn { font-size: 0.72rem; padding: 0.2rem 0.65rem; border-radius: 6px; border: 1px solid var(--border); background: white; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+    .rec-btn:hover { border-color: var(--green); color: var(--green); }
+    .rec-btn.share { background: var(--green); color: white; border-color: var(--green); }
+
+    .rec-header-row {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 0.6rem 1.5rem; background: var(--cream);
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem; color: var(--mid);
+      text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600;
+    }
+
+    .patient-profile-card {
+      background: var(--green); border-radius: var(--radius);
+      padding: 1.5rem; color: white; margin-bottom: 1.5rem;
+      display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;
+    }
+    .ppcard-avatar { font-size: 4rem; }
+    .ppcard-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: white; }
+    .ppcard-info { font-size: 0.85rem; color: rgba(255,255,255,0.8); margin-top: 0.35rem; line-height: 1.7; }
+    .ppcard-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .ppcard-badge { background: rgba(255,255,255,0.15); border-radius: 100px; padding: 0.25rem 0.8rem; font-size: 0.75rem; }
+
+    .upload-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius);
+      padding: 2rem; text-align: center; cursor: pointer;
+      margin-bottom: 1.5rem; background: white; transition: all 0.2s;
+    }
+    .upload-zone:hover { border-color: var(--green); background: var(--green-pale); }
+    .upload-zone .uz-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .upload-zone p { font-size: 0.9rem; color: var(--mid); }
+    .upload-zone strong { color: var(--green); }
+  </style>
+</head>
+<body style="background:#f4f6f4;padding-top:70px">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">✚</span><span class="logo-text">MediBuddy</span></a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="consultation.html">Consultations</a></li>
+      <li><a href="records.html" style="color:var(--green)">Records</a></li>
+      <li><a href="pharmacy.html">Pharmacy</a></li>
+      <li><a href="chronic.html">Chronic Care</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="dashboard.html" class="btn-primary">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-breadcrumb">
+    <a href="index.html">Home</a> / <a href="dashboard.html">Dashboard</a> / Medical Records
+  </div>
+  
+  <div class="records-top">
+    <div>
+      <h1>Medical Records</h1>
+      <p>Your complete health history — secure, private, always accessible.</p>
+    </div>
+    <button class="btn-primary" style="font-size:0.9rem;">+ Upload Record</button>
+  </div>
+
+  <!-- Patient Profile -->
+  <div class="patient-profile-card">
+    <div class="ppcard-avatar">👩</div>
+    <div>
+      <div class="ppcard-name">Meena Devi</div>
+      <div class="ppcard-info">
+        Age: 42 | Female | Blood Group: B+ | ABHA ID: 14-2345-6789-0012<br>
+        Conditions: Type 2 Diabetes, Hypertension | Allergies: Penicillin
+      </div>
+      <div class="ppcard-badges">
+        <span class="ppcard-badge">ABDM Linked ✓</span>
+        <span class="ppcard-badge">ABHA Verified ✓</span>
+        <span class="ppcard-badge">DigiLocker Synced ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Zone -->
+  <div class="upload-zone">
+    <div class="uz-icon">📁</div>
+    <p><strong>Upload a new record</strong> — Drag & drop or click to browse</p>
+    <p>Supported: PDF, JPG, PNG (Lab reports, prescriptions, discharge summaries)</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="rec-tabs">
+    <div class="rec-tab active">All Records</div>
+    <div class="rec-tab">Prescriptions</div>
+    <div class="rec-tab">Lab Reports</div>
+    <div class="rec-tab">Radiology</div>
+    <div class="rec-tab">Discharge Summaries</div>
+  </div>
+
+  <!-- Table -->
+  <div class="records-table">
+    <div class="rec-header-row">
+      <div style="width:44px"></div>
+      <div style="flex:1">Record Name</div>
+      <div style="width:180px">Date</div>
+      <div style="width:140px">Actions</div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-green">📋</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">HbA1c Blood Test Report</div>
+        <div class="rec-row-meta">Lab Report • Srinivasa Diagnostics, Raichur</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">15 April 2025</div>
+        <div class="rec-row-doc">Referred by Dr. Priya Iyer</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-blue">💊</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">Prescription — Follow-Up Consultation</div>
+        <div class="rec-row-meta">Prescription • Metformin, Amlodipine, Telmisartan</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">10 April 2025</div>
+        <div class="rec-row-doc">Dr. Arjun Mehta, Cardiologist</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-orange">🩸</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">Complete Blood Count (CBC)</div>
+        <div class="rec-row-meta">Lab Report • Hemoglobin, RBC, WBC, Platelets</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">02 April 2025</div>
+        <div class="rec-row-doc">Referred by Dr. Priya Iyer</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-blue">💊</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">Prescription — Initial Consultation</div>
+        <div class="rec-row-meta">Prescription • Metformin 500mg, Amlodipine 5mg</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">15 March 2025</div>
+        <div class="rec-row-doc">Dr. Priya Iyer, Diabetologist</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-green">📋</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">Lipid Profile Test</div>
+        <div class="rec-row-meta">Lab Report • Cholesterol, Triglycerides, LDL, HDL</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">28 February 2025</div>
+        <div class="rec-row-doc">Referred by Dr. Ramesh Nair</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="rec-row">
+      <div class="rec-row-icon ri-red">🩻</div>
+      <div class="rec-row-info">
+        <div class="rec-row-name">Chest X-Ray</div>
+        <div class="rec-row-meta">Radiology • Srinivasa Diagnostics, Raichur</div>
+      </div>
+      <div class="rec-row-right">
+        <div class="rec-row-date">10 January 2025</div>
+        <div class="rec-row-doc">Dr. Ramesh Nair, General Physician</div>
+        <div class="rec-row-actions">
+          <button class="rec-btn">👁 View</button>
+          <button class="rec-btn share">📤 Share</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.rec-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.rec-tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

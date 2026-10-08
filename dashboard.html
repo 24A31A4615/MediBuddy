@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-body">
+
+<div class="dash-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo" style="padding:1.5rem;border-bottom:1px solid rgba(255,255,255,0.1)">
+      <span class="logo-icon">✚</span>
+      <span class="logo-text" style="color:white">MediBuddy</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="s-link active">🏠 Dashboard</a>
+      <a href="consultation.html" class="s-link">📹 Consultations</a>
+      <a href="records.html" class="s-link">📋 Medical Records</a>
+      <a href="pharmacy.html" class="s-link">🚚 Pharmacy</a>
+      <a href="chronic.html" class="s-link">📊 Chronic Care</a>
+      <a href="#" class="s-link">💬 Messages</a>
+      <a href="#" class="s-link">⚙️ Settings</a>
+    </nav>
+    <div class="sidebar-profile">
+      <div class="prof-avatar">👩</div>
+      <div>
+        <div class="prof-name">Meena Devi</div>
+        <div class="prof-loc">📍 Raichur, Karnataka</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div>
+        <h2 class="dash-greeting">Good morning, Meena 🌅</h2>
+        <p class="dash-date">Sunday, 26 April 2025</p>
+      </div>
+      <div class="topbar-actions">
+        <div class="notif-btn">🔔 <span class="notif-badge">3</span></div>
+        <a href="consultation.html" class="btn-primary">+ New Consultation</a>
+      </div>
+    </div>
+
+    <!-- Health Score -->
+    <div class="health-score-banner">
+      <div class="score-text">
+        <h3>Your Health Score</h3>
+        <p>Based on today's metrics, medication adherence, and recent activity</p>
+      </div>
+      <div class="score-circle">
+        <svg viewBox="0 0 100 100" width="100" height="100">
+          <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="8"/>
+          <circle cx="50" cy="50" r="42" fill="none" stroke="#7fffb0" stroke-width="8"
+            stroke-dasharray="218" stroke-dashoffset="44" stroke-linecap="round"
+            transform="rotate(-90 50 50)"/>
+        </svg>
+        <div class="score-val">80</div>
+      </div>
+      <div class="score-tips">
+        <div class="score-tip">✅ Medications taken</div>
+        <div class="score-tip">⚠️ BP slightly high</div>
+        <div class="score-tip">✅ Steps goal met</div>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="dash-stats-row">
+      <div class="dash-stat-card">
+        <div class="dsc-icon">💉</div>
+        <div>
+          <div class="dsc-label">Blood Sugar</div>
+          <div class="dsc-val">98 <small>mg/dL</small></div>
+          <div class="dsc-status good">Normal</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dsc-icon">❤️</div>
+        <div>
+          <div class="dsc-label">Blood Pressure</div>
+          <div class="dsc-val">138/88 <small>mmHg</small></div>
+          <div class="dsc-status warn">Elevated</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dsc-icon">💊</div>
+        <div>
+          <div class="dsc-label">Medications</div>
+          <div class="dsc-val">3/3 <small>taken</small></div>
+          <div class="dsc-status good">On Track</div>
+        </div>
+      </div>
+      <div class="dash-stat-card">
+        <div class="dsc-icon">🚶</div>
+        <div>
+          <div class="dsc-label">Steps Today</div>
+          <div class="dsc-val">4,230 <small>steps</small></div>
+          <div class="dsc-status good">Goal Met</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-grid">
+      <!-- Upcoming Appointments -->
+      <div class="dash-card-block">
+        <div class="block-header">
+          <h3>Upcoming Appointments</h3>
+          <a href="consultation.html" class="view-all">View All →</a>
+        </div>
+        <div class="appt-list">
+          <div class="appt-item">
+            <div class="appt-icon">👨‍⚕️</div>
+            <div class="appt-info">
+              <div class="appt-doc">Dr. Arjun Mehta</div>
+              <div class="appt-spec">Cardiologist • Video Call</div>
+            </div>
+            <div class="appt-time">
+              <div class="appt-date">Tomorrow</div>
+              <div class="appt-clock">10:30 AM</div>
+              <span class="appt-badge">Confirmed</span>
+            </div>
+          </div>
+          <div class="appt-item">
+            <div class="appt-icon">👩‍⚕️</div>
+            <div class="appt-info">
+              <div class="appt-doc">Dr. Priya Iyer</div>
+              <div class="appt-spec">Diabetologist • Video Call</div>
+            </div>
+            <div class="appt-time">
+              <div class="appt-date">May 3</div>
+              <div class="appt-clock">3:00 PM</div>
+              <span class="appt-badge">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Medicine Delivery -->
+      <div class="dash-card-block">
+        <div class="block-header">
+          <h3>Medicine Delivery</h3>
+          <a href="pharmacy.html" class="view-all">Track →</a>
+        </div>
+        <div class="delivery-status">
+          <div class="delivery-banner">
+            <div class="del-icon">🚚</div>
+            <div class="del-info">
+              <div class="del-label">Order #MB-2024-4521</div>
+              <div class="del-status-text">Out for Delivery</div>
+              <div class="del-eta">Estimated: 2:30 PM today</div>
+            </div>
+          </div>
+          <div class="delivery-track">
+            <div class="track-step done">✅ Order Confirmed</div>
+            <div class="track-line"></div>
+            <div class="track-step done">✅ Dispatched from Pharmacy</div>
+            <div class="track-line"></div>
+            <div class="track-step active">🚚 Out for Delivery</div>
+            <div class="track-line pending"></div>
+            <div class="track-step pending">🏠 Delivered</div>
+          </div>
+          <div class="del-items">
+            <div class="del-item">Metformin 500mg × 30</div>
+            <div class="del-item">Amlodipine 5mg × 30</div>
+            <div class="del-item">Telmisartan 40mg × 30</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Records -->
+      <div class="dash-card-block">
+        <div class="block-header">
+          <h3>Recent Records</h3>
+          <a href="records.html" class="view-all">View All →</a>
+        </div>
+        <div class="records-list">
+          <div class="record-item">
+            <div class="rec-icon">📄</div>
+            <div class="rec-info">
+              <div class="rec-name">HbA1c Report</div>
+              <div class="rec-date">15 April 2025</div>
+            </div>
+            <div class="rec-val">6.8% <span class="good-chip">Good</span></div>
+          </div>
+          <div class="record-item">
+            <div class="rec-icon">💊</div>
+            <div class="rec-info">
+              <div class="rec-name">Prescription — Dr. Mehta</div>
+              <div class="rec-date">10 April 2025</div>
+            </div>
+            <div class="rec-val"><span class="view-chip">View</span></div>
+          </div>
+          <div class="record-item">
+            <div class="rec-icon">🩸</div>
+            <div class="rec-info">
+              <div class="rec-name">Complete Blood Count</div>
+              <div class="rec-date">02 April 2025</div>
+            </div>
+            <div class="rec-val"><span class="view-chip">View</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI Insights -->
+      <div class="dash-card-block insights-block">
+        <div class="block-header">
+          <h3>AI Health Insights</h3>
+        </div>
+        <div class="insights-list">
+          <div class="insight-item">
+            <div class="insight-icon">⚠️</div>
+            <div>
+              <div class="insight-title">Blood pressure trending high this week</div>
+              <div class="insight-desc">Consider reducing salt intake and scheduling a check-up with your cardiologist.</div>
+            </div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-icon">🎉</div>
+            <div>
+              <div class="insight-title">Excellent medication adherence — 7 days streak!</div>
+              <div class="insight-desc">Keep it up! Consistent medication is the best predictor of diabetes control.</div>
+            </div>
+          </div>
+          <div class="insight-item">
+            <div class="insight-icon">💡</div>
+            <div>
+              <div class="insight-title">Your HbA1c improved from 7.4% to 6.8%</div>
+              <div class="insight-desc">Great progress over the last 3 months. Your lifestyle changes are working!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

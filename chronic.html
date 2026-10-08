@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chronic Care — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    .page-breadcrumb { font-size: 0.82rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .page-breadcrumb a { color: var(--green); text-decoration: none; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; }
+    .page-header p { color: var(--mid); margin-top: 0.5rem; }
+
+    .condition-tabs { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .ctab { padding: 0.6rem 1.5rem; border-radius: 100px; border: 1.5px solid var(--border); font-size: 0.88rem; cursor: pointer; background: white; transition: all 0.2s; }
+    .ctab.active { background: var(--green); color: white; border-color: var(--green); }
+
+    .chronic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    .log-form { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .form-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 1.25rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--mid); margin-bottom: 0.35rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+    .form-group input {
+      width: 100%; padding: 0.65rem 1rem;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus { border-color: var(--green); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .btn-log { width: 100%; padding: 0.75rem; background: var(--green); color: white; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 0.5rem; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+    .btn-log:hover { background: var(--green-light); }
+
+    /* Chart */
+    .chart-block { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+    .chart-title { font-size: 1.05rem; font-weight: 700; }
+    .chart-period { display: flex; gap: 0.5rem; }
+    .period-btn { padding: 0.3rem 0.8rem; border-radius: 100px; border: 1px solid var(--border); font-size: 0.75rem; cursor: pointer; }
+    .period-btn.active { background: var(--green); color: white; border-color: var(--green); }
+    .chart-area { height: 160px; display: flex; align-items: flex-end; gap: 8px; margin-bottom: 0.5rem; }
+    .c-bar { flex: 1; border-radius: 6px 6px 0 0; position: relative; transition: all 0.3s; cursor: pointer; }
+    .c-bar:hover { opacity: 0.75; }
+    .c-bar span { position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: var(--mid); white-space: nowrap; }
+    .c-bar .val-label { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 0.65rem; color: var(--dark); font-weight: 600; white-space: nowrap; }
+    .c-bar.green { background: var(--green); }
+    .c-bar.orange { background: var(--saffron); }
+    .c-bar.red { background: #e53935; }
+    .chart-legend { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.35rem; font-size: 0.75rem; color: var(--mid); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    /* Meds tracker */
+    .meds-block { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .med-item { display: flex; align-items: center; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--border); }
+    .med-item:last-child { border-bottom: none; }
+    .med-icon { width: 40px; height: 40px; background: var(--green-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .med-info { flex: 1; }
+    .med-name { font-weight: 600; font-size: 0.9rem; }
+    .med-dose { font-size: 0.8rem; color: var(--mid); }
+    .med-time { font-size: 0.78rem; color: var(--mid); }
+    .med-check { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.9rem; transition: all 0.2s; }
+    .med-check.done { background: var(--green); border-color: var(--green); color: white; }
+
+    /* Insights full block */
+    .insights-full { background: var(--green); border-radius: var(--radius); padding: 1.75rem; color: white; grid-column: span 2; }
+    .insights-full h3 { color: white; font-size: 1.1rem; margin-bottom: 1.25rem; }
+    .insights-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .insight-box { background: rgba(255,255,255,0.12); border-radius: var(--radius-sm); padding: 1rem; }
+    .insight-box .ib-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .insight-box .ib-title { font-weight: 600; font-size: 0.9rem; color: white; margin-bottom: 0.35rem; }
+    .insight-box .ib-desc { font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
+
+    .logged-toast { display: none; background: var(--green-pale); border: 1px solid var(--green); border-radius: 10px; padding: 1rem; margin-top: 1rem; color: var(--green); font-weight: 600; font-size: 0.9rem; }
+    .logged-toast.visible { display: block; }
+  </style>
+</head>
+<body style="background:#f4f6f4;padding-top:70px">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">✚</span><span class="logo-text">MediBuddy</span></a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="consultation.html">Consultations</a></li>
+      <li><a href="records.html">Records</a></li>
+      <li><a href="pharmacy.html">Pharmacy</a></li>
+      <li><a href="chronic.html" style="color:var(--green)">Chronic Care</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="dashboard.html" class="btn-primary">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-breadcrumb">
+    <a href="index.html">Home</a> / <a href="dashboard.html">Dashboard</a> / Chronic Care
+  </div>
+  <div class="page-header">
+    <h1>Chronic Condition Manager</h1>
+    <p>Track, monitor, and manage your health metrics with personalized AI insights.</p>
+  </div>
+
+  <div class="condition-tabs">
+    <div class="ctab active">🩸 Diabetes</div>
+    <div class="ctab">❤️ Hypertension</div>
+    <div class="ctab">🫀 Heart Health</div>
+    <div class="ctab">🦴 Thyroid</div>
+    <div class="ctab">+ Add Condition</div>
+  </div>
+
+  <div class="chronic-grid">
+
+    <!-- Log Today -->
+    <div class="log-form">
+      <div class="form-title">📝 Log Today's Readings</div>
+      <div class="form-group">
+        <label>Fasting Blood Sugar (mg/dL)</label>
+        <input type="number" id="fastingSugar" placeholder="e.g. 98" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Post-Meal Sugar</label>
+          <input type="number" id="postMealSugar" placeholder="e.g. 135" />
+        </div>
+        <div class="form-group">
+          <label>Blood Pressure</label>
+          <input type="text" id="bp" placeholder="e.g. 130/85" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Weight (kg)</label>
+          <input type="number" id="weight" placeholder="e.g. 62" />
+        </div>
+        <div class="form-group">
+          <label>Steps Today</label>
+          <input type="number" id="steps" placeholder="e.g. 4000" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <input type="text" id="notes" placeholder="How are you feeling today?" />
+      </div>
+      <button class="btn-log" onclick="logReadings()">✅ Save Today's Reading</button>
+      <div class="logged-toast" id="loggedToast">✅ Readings saved! Your AI insights have been updated.</div>
+    </div>
+
+    <!-- Blood Sugar Chart -->
+    <div class="chart-block">
+      <div class="chart-header">
+        <div class="chart-title">Blood Sugar Trend</div>
+        <div class="chart-period">
+          <div class="period-btn active">7D</div>
+          <div class="period-btn">1M</div>
+          <div class="period-btn">3M</div>
+        </div>
+      </div>
+      <div class="chart-area">
+        <div class="c-bar green" style="height:55%"><div class="val-label">92</div><span>Mon</span></div>
+        <div class="c-bar green" style="height:62%"><div class="val-label">102</div><span>Tue</span></div>
+        <div class="c-bar orange" style="height:78%"><div class="val-label">128</div><span>Wed</span></div>
+        <div class="c-bar green" style="height:58%"><div class="val-label">95</div><span>Thu</span></div>
+        <div class="c-bar green" style="height:52%"><div class="val-label">88</div><span>Fri</span></div>
+        <div class="c-bar orange" style="height:70%"><div class="val-label">115</div><span>Sat</span></div>
+        <div class="c-bar green" style="height:48%"><div class="val-label">82</div><span>Sun</span></div>
+      </div>
+      <div class="chart-legend" style="margin-top:2rem">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Normal (70–100)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--saffron)"></div> Elevated (100–140)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e53935"></div> High (>140)</div>
+      </div>
+    </div>
+
+    <!-- Medications -->
+    <div class="meds-block">
+      <div class="block-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+        <div style="font-size:1.05rem;font-weight:700">💊 Today's Medications</div>
+        <span style="font-size:0.82rem;color:var(--green);font-weight:600">3/3 Done ✅</span>
+      </div>
+      <div class="med-item">
+        <div class="med-icon">🔵</div>
+        <div class="med-info">
+          <div class="med-name">Metformin 500mg</div>
+          <div class="med-dose">1 tablet after breakfast</div>
+          <div class="med-time">⏰ 8:00 AM — Taken at 8:14 AM</div>
+        </div>
+        <div class="med-check done">✓</div>
+      </div>
+      <div class="med-item">
+        <div class="med-icon">🔴</div>
+        <div class="med-info">
+          <div class="med-name">Amlodipine 5mg</div>
+          <div class="med-dose">1 tablet before lunch</div>
+          <div class="med-time">⏰ 1:00 PM — Taken at 1:05 PM</div>
+        </div>
+        <div class="med-check done">✓</div>
+      </div>
+      <div class="med-item">
+        <div class="med-icon">🟡</div>
+        <div class="med-info">
+          <div class="med-name">Telmisartan 40mg</div>
+          <div class="med-dose">1 tablet at bedtime</div>
+          <div class="med-time">⏰ 9:00 PM — Taken at 9:02 PM</div>
+        </div>
+        <div class="med-check done">✓</div>
+      </div>
+    </div>
+
+    <!-- Next Appointment -->
+    <div class="meds-block">
+      <div style="font-size:1.05rem;font-weight:700;margin-bottom:1.25rem">📅 Upcoming Appointments</div>
+      <div class="appt-item" style="display:flex;gap:1rem;align-items:center;padding:0.85rem 0;border-bottom:1px solid var(--border)">
+        <div style="font-size:2rem">👩‍⚕️</div>
+        <div style="flex:1">
+          <div style="font-weight:600;font-size:0.9rem">Dr. Priya Iyer</div>
+          <div style="font-size:0.8rem;color:var(--mid)">Diabetologist — Follow-up</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:0.8rem;color:var(--mid)">May 3, 2025</div>
+          <div style="font-weight:700;font-size:0.95rem">3:00 PM</div>
+          <span style="display:inline-block;font-size:0.7rem;padding:0.15rem 0.6rem;background:var(--green-pale);color:var(--green);border-radius:100px;font-weight:600">Confirmed</span>
+        </div>
+      </div>
+      <div style="text-align:center;padding:1.5rem 0">
+        <a href="consultation.html" class="btn-primary" style="display:inline-block">+ Schedule Follow-Up</a>
+      </div>
+    </div>
+
+    <!-- AI Insights Full Width -->
+    <div class="insights-full">
+      <h3>🤖 Personalized AI Health Insights</h3>
+      <div class="insights-row">
+        <div class="insight-box">
+          <div class="ib-icon">📉</div>
+          <div class="ib-title">Blood Sugar Improving</div>
+          <div class="ib-desc">Your average fasting sugar dropped from 118 to 96 mg/dL over the last 30 days. Excellent progress!</div>
+        </div>
+        <div class="insight-box">
+          <div class="ib-icon">⚠️</div>
+          <div class="ib-title">Wednesday Spike Pattern</div>
+          <div class="ib-desc">Sugar consistently spikes on Wednesdays. Try to avoid heavy dinners on Tuesdays. Consider a short walk post-dinner.</div>
+        </div>
+        <div class="insight-box">
+          <div class="ib-icon">🏆</div>
+          <div class="ib-title">Medication Adherence: 96%</div>
+          <div class="ib-desc">You've taken your medications on time 27 out of 28 days. This is the single biggest factor in your improvement.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function logReadings() {
+  const toast = document.getElementById('loggedToast');
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 4000);
+}
+
+document.querySelectorAll('.ctab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.period-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.chart-period').querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.med-check').forEach(check => {
+  check.addEventListener('click', () => check.classList.toggle('done'));
+});
+</script>
+</body>
+</html>

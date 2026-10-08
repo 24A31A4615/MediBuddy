@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--cream); }
+    .login-wrap { display: flex; max-width: 900px; width: 100%; margin: 2rem; border-radius: 24px; overflow: hidden; box-shadow: 0 24px 80px rgba(26,122,74,0.15); }
+    .login-left { background: var(--green); flex: 1; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+    .login-left .logo { color: white; margin-bottom: 2.5rem; }
+    .login-left h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: white; margin-bottom: 1rem; }
+    .login-left p { color: rgba(255,255,255,0.75); font-size: 0.9rem; line-height: 1.7; margin-bottom: 2rem; }
+    .trust-items { display: flex; flex-direction: column; gap: 0.75rem; }
+    .trust-item { display: flex; align-items: center; gap: 0.75rem; color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+    .trust-dot { width: 8px; height: 8px; border-radius: 50%; background: #7fffb0; flex-shrink: 0; }
+    .login-right { background: white; flex: 1; padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+    .login-title { font-size: 1.6rem; margin-bottom: 0.35rem; }
+    .login-sub { font-size: 0.88rem; color: var(--mid); margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+    .form-group input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: var(--green); }
+    .login-btn { width: 100%; padding: 0.85rem; background: var(--green); color: white; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; margin-top: 0.5rem; }
+    .login-btn:hover { background: var(--green-light); }
+    .login-divider { display: flex; align-items: center; gap: 1rem; margin: 1.25rem 0; color: var(--mid); font-size: 0.82rem; }
+    .login-divider::before, .login-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .btn-otp { width: 100%; padding: 0.75rem; border: 1.5px solid var(--border); border-radius: 12px; font-size: 0.9rem; font-weight: 500; cursor: pointer; background: white; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+    .btn-otp:hover { border-color: var(--green); color: var(--green); }
+    .login-footer { margin-top: 1.5rem; font-size: 0.82rem; color: var(--mid); text-align: center; }
+    .login-footer a { color: var(--green); text-decoration: none; font-weight: 600; }
+    .lang-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.25rem; }
+    .lang-btn { padding: 0.3rem 0.7rem; border-radius: 100px; border: 1px solid var(--border); font-size: 0.75rem; cursor: pointer; background: white; }
+    .lang-btn:hover { border-color: var(--green); }
+    @media (max-width: 700px) { .login-left { display: none; } .login-wrap { border-radius: 16px; } }
+  </style>
+</head>
+<body>
+<div class="login-wrap">
+  <div class="login-left">
+    <div class="logo"><span class="logo-icon">✚</span><span class="logo-text" style="color:white">MediBuddy</span></div>
+    <h2>Healthcare at your fingertips</h2>
+    <p>Connect with top doctors, manage your health records, track medicines — all from your phone, in your language.</p>
+    <div class="trust-items">
+      <div class="trust-item"><div class="trust-dot"></div> ABDM Compliant & ABHA Linked</div>
+      <div class="trust-item"><div class="trust-dot"></div> End-to-end encrypted health data</div>
+      <div class="trust-item"><div class="trust-dot"></div> Free first consultation for rural patients</div>
+      <div class="trust-item"><div class="trust-dot"></div> 18,000+ verified doctors across India</div>
+    </div>
+  </div>
+  <div class="login-right">
+    <h2 class="login-title">Welcome back</h2>
+    <p class="login-sub">Sign in to your MediBuddy account</p>
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input type="tel" placeholder="+91 98765 43210" />
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" placeholder="Enter your password" />
+    </div>
+    <a href="dashboard.html"><button class="login-btn">Sign In →</button></a>
+    <div class="login-divider">or</div>
+    <button class="btn-otp">📱 Login with OTP</button>
+    <button class="btn-otp" style="margin-top:0.5rem">🏥 Login with ABHA ID</button>
+    <div class="login-footer">
+      Don't have an account? <a href="dashboard.html">Register Free →</a>
+    </div>
+    <div style="margin-top:1.5rem;font-size:0.78rem;color:var(--mid)">Select your language:</div>
+    <div class="lang-row">
+      <div class="lang-btn">हिंदी</div>
+      <div class="lang-btn">English</div>
+      <div class="lang-btn">తెలుగు</div>
+      <div class="lang-btn">தமிழ்</div>
+      <div class="lang-btn">ಕನ್ನಡ</div>
+      <div class="lang-btn">বাংলা</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

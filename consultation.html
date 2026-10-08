@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Video Consultation — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    .page-breadcrumb { font-size: 0.82rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .page-breadcrumb a { color: var(--green); text-decoration: none; }
+    .consult-header { margin-bottom: 2rem; }
+    .consult-header h1 { font-size: 2rem; }
+    .consult-header p { color: var(--mid); margin-top: 0.5rem; }
+
+    .filter-bar { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-pill { padding: 0.5rem 1.2rem; border-radius: 100px; border: 1.5px solid var(--border); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; background: white; }
+    .filter-pill.active, .filter-pill:hover { border-color: var(--green); color: var(--green); background: var(--green-pale); }
+
+    .doctors-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .dl-card {
+      background: white; border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .dl-card:hover { box-shadow: var(--shadow-lg); border-color: var(--green); transform: translateY(-3px); }
+    .dl-top { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+    .dl-emo { font-size: 3rem; width: 64px; height: 64px; background: var(--cream); border-radius: 16px; display: flex; align-items: center; justify-content: center; }
+    .dl-info { flex: 1; }
+    .dl-name { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; }
+    .dl-spec { font-size: 0.82rem; color: var(--green); font-weight: 600; }
+    .dl-city { font-size: 0.8rem; color: var(--mid); }
+    .dl-rating { font-size: 0.82rem; color: var(--mid); margin: 0.25rem 0; }
+    .avail-badge { display: inline-block; font-size: 0.72rem; padding: 0.2rem 0.7rem; border-radius: 100px; background: var(--green-pale); color: var(--green); font-weight: 600; margin-top: 0.25rem; }
+    .avail-badge.soon { background: var(--saffron-light); color: #9a5500; }
+    .dl-exp { font-size: 0.82rem; color: var(--mid); margin-bottom: 1rem; line-height: 1.5; }
+    .dl-price-row { display: flex; align-items: center; justify-content: space-between; }
+    .dl-price { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--dark); }
+    .dl-price small { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: var(--mid); }
+    .btn-book { padding: 0.6rem 1.4rem; background: var(--green); color: white; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-book:hover { background: var(--green-light); }
+
+    /* Live Call UI */
+    .live-call-section { background: var(--dark); border-radius: var(--radius); padding: 2rem; margin-top: 2rem; display: none; }
+    .live-call-section.visible { display: block; }
+    .call-screen { 
+      background: linear-gradient(135deg, #1a3d2e, #0d2018);
+      border-radius: 16px; padding: 3rem 2rem;
+      text-align: center; color: white; position: relative;
+    }
+    .call-big-avatar { font-size: 5rem; margin-bottom: 1rem; }
+    .call-doc-name { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: white; }
+    .call-doc-title { color: #7fffb0; font-size: 0.9rem; }
+    .call-timer { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem; }
+    .call-btns { display: flex; gap: 1.5rem; justify-content: center; margin-top: 2rem; }
+    .call-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; cursor: pointer; border: none; background: rgba(255,255,255,0.15); color: white; transition: all 0.2s; }
+    .call-btn:hover { background: rgba(255,255,255,0.25); }
+    .call-btn.end { background: #e53935; }
+    .call-btn.end:hover { background: #c62828; }
+  </style>
+</head>
+<body style="background:#f4f6f4;padding-top:70px">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">✚</span><span class="logo-text">MediBuddy</span></a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="consultation.html" style="color:var(--green)">Consultations</a></li>
+      <li><a href="records.html">Records</a></li>
+      <li><a href="pharmacy.html">Pharmacy</a></li>
+      <li><a href="chronic.html">Chronic Care</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="dashboard.html" class="btn-primary">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-breadcrumb">
+    <a href="index.html">Home</a> / <a href="dashboard.html">Dashboard</a> / Consultations
+  </div>
+  <div class="consult-header">
+    <h1>Book a Video Consultation</h1>
+    <p>Connect with verified specialists — available in your language, from your home.</p>
+  </div>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-pill active">All Specialties</div>
+    <div class="filter-pill">General Physician</div>
+    <div class="filter-pill">Diabetologist</div>
+    <div class="filter-pill">Cardiologist</div>
+    <div class="filter-pill">Pediatrician</div>
+    <div class="filter-pill">Gynecologist</div>
+    <div class="filter-pill">Dermatologist</div>
+    <div class="filter-pill">Available Now</div>
+  </div>
+
+  <!-- Doctor Cards -->
+  <div class="doctors-list">
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👨‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Arjun Mehta</div>
+          <div class="dl-spec">Cardiologist</div>
+          <div class="dl-city">Mumbai | 15 yrs exp</div>
+          <div class="dl-rating">★★★★★ 4.9 (312 reviews)</div>
+          <span class="avail-badge">🟢 Available Now</span>
+        </div>
+      </div>
+      <p class="dl-exp">Specialist in hypertension, heart failure, and preventive cardiology. MBBS (AIIMS Delhi), MD Cardiology (KEM Mumbai).</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹199 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Arjun Mehta', 'Cardiologist')">Book Now 📹</button>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👩‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Priya Iyer</div>
+          <div class="dl-spec">Diabetologist</div>
+          <div class="dl-city">Chennai | 12 yrs exp</div>
+          <div class="dl-rating">★★★★★ 4.8 (540 reviews)</div>
+          <span class="avail-badge">🟢 Available Now</span>
+        </div>
+      </div>
+      <p class="dl-exp">Expert in Type 1 & 2 Diabetes, gestational diabetes and advanced insulin therapy. MBBS, MD Medicine, DM Endocrinology (CMC Vellore).</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹249 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Priya Iyer', 'Diabetologist')">Book Now 📹</button>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👨‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Ramesh Nair</div>
+          <div class="dl-spec">General Physician</div>
+          <div class="dl-city">Hyderabad | 10 yrs exp</div>
+          <div class="dl-rating">★★★★☆ 4.7 (210 reviews)</div>
+          <span class="avail-badge soon">🟡 Available in 15 min</span>
+        </div>
+      </div>
+      <p class="dl-exp">Comprehensive primary care including fever, infections, chronic disease monitoring, and preventive health checkups.</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹99 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Ramesh Nair', 'General Physician')">Book Now 📹</button>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👩‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Sunita Verma</div>
+          <div class="dl-spec">Pediatrician</div>
+          <div class="dl-city">Delhi | 18 yrs exp</div>
+          <div class="dl-rating">★★★★★ 4.9 (189 reviews)</div>
+          <span class="avail-badge">🟢 Available Now</span>
+        </div>
+      </div>
+      <p class="dl-exp">Child health specialist covering newborns to adolescents. Expert in growth monitoring, vaccinations, and childhood infections.</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹149 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Sunita Verma', 'Pediatrician')">Book Now 📹</button>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👩‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Anita Sharma</div>
+          <div class="dl-spec">Gynecologist</div>
+          <div class="dl-city">Pune | 14 yrs exp</div>
+          <div class="dl-rating">★★★★★ 4.8 (423 reviews)</div>
+          <span class="avail-badge">🟢 Available Now</span>
+        </div>
+      </div>
+      <p class="dl-exp">Women's health, antenatal care, reproductive health, PCOS management, and menopause counselling.</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹199 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Anita Sharma', 'Gynecologist')">Book Now 📹</button>
+      </div>
+    </div>
+
+    <div class="dl-card">
+      <div class="dl-top">
+        <div class="dl-emo">👨‍⚕️</div>
+        <div class="dl-info">
+          <div class="dl-name">Dr. Vijay Kumar</div>
+          <div class="dl-spec">Dermatologist</div>
+          <div class="dl-city">Bangalore | 9 yrs exp</div>
+          <div class="dl-rating">★★★★☆ 4.6 (154 reviews)</div>
+          <span class="avail-badge soon">🟡 Available in 30 min</span>
+        </div>
+      </div>
+      <p class="dl-exp">Skin conditions, allergies, fungal infections, psoriasis, eczema, and cosmetic dermatology guidance.</p>
+      <div class="dl-price-row">
+        <div class="dl-price">₹149 <small>/ session</small></div>
+        <button class="btn-book" onclick="showCall('Dr. Vijay Kumar', 'Dermatologist')">Book Now 📹</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Call UI (hidden by default) -->
+  <div class="live-call-section" id="liveCall">
+    <div class="call-screen">
+      <div class="call-big-avatar" id="callAvatar">👨‍⚕️</div>
+      <div class="call-doc-name" id="callDocName">Dr. Arjun Mehta</div>
+      <div class="call-doc-title" id="callDocSpec">Cardiologist</div>
+      <div class="call-timer" id="callTimer">Connecting… 00:00</div>
+      <div class="call-btns">
+        <div class="call-btn">🎤</div>
+        <div class="call-btn">📹</div>
+        <div class="call-btn">💬</div>
+        <div class="call-btn end" onclick="endCall()">📵</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let callInterval;
+let callSeconds = 0;
+
+function showCall(name, spec) {
+  document.getElementById('callDocName').textContent = name;
+  document.getElementById('callDocSpec').textContent = spec;
+  document.getElementById('liveCall').classList.add('visible');
+  document.getElementById('liveCall').scrollIntoView({behavior:'smooth'});
+  callSeconds = 0;
+  clearInterval(callInterval);
+  setTimeout(() => {
+    document.getElementById('callTimer').textContent = '00:00';
+    callInterval = setInterval(() => {
+      callSeconds++;
+      const m = String(Math.floor(callSeconds/60)).padStart(2,'0');
+      const s = String(callSeconds%60).padStart(2,'0');
+      document.getElementById('callTimer').textContent = `${m}:${s}`;
+    }, 1000);
+  }, 2000);
+}
+
+function endCall() {
+  clearInterval(callInterval);
+  document.getElementById('liveCall').classList.remove('visible');
+  alert('Consultation ended. Prescription will be sent to your records.');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pharmacy & Delivery — MediBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <style>
+    .page-body { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+    .page-breadcrumb { font-size: 0.82rem; color: var(--mid); margin-bottom: 1.5rem; }
+    .page-breadcrumb a { color: var(--green); text-decoration: none; }
+    .page-header { margin-bottom: 2rem; }
+    .page-header h1 { font-size: 2rem; }
+    .page-header p { color: var(--mid); margin-top: 0.5rem; }
+
+    .pharmacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    .order-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .order-banner {
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      border-radius: var(--radius); padding: 2rem;
+      margin-bottom: 1.5rem; color: white;
+    }
+    .order-banner h2 { color: white; font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .order-banner p { color: rgba(255,255,255,0.8); font-size: 0.9rem; }
+    .ob-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .ob-id { font-size: 0.85rem; background: rgba(255,255,255,0.15); padding: 0.35rem 0.9rem; border-radius: 100px; }
+    .ob-eta { font-size: 0.9rem; font-weight: 600; }
+
+    /* Timeline */
+    .timeline { padding: 0.5rem 0; }
+    .tl-step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+    .tl-dot-col { display: flex; flex-direction: column; align-items: center; }
+    .tl-dot { width: 20px; height: 20px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; }
+    .tl-dot.done { background: var(--green); color: white; }
+    .tl-dot.active { background: var(--saffron); color: white; animation: pulse 1.5s infinite; }
+    .tl-dot.pending { background: var(--border); color: var(--mid); }
+    .tl-line { width: 2px; height: 24px; background: var(--border); margin: 2px 0; }
+    .tl-line.done { background: var(--green); }
+    .tl-content { padding-top: 0.1rem; }
+    .tl-title { font-weight: 600; font-size: 0.9rem; }
+    .tl-title.active { color: var(--saffron); }
+    .tl-title.done { color: var(--green); }
+    .tl-title.pending { color: var(--mid); }
+    .tl-time { font-size: 0.78rem; color: var(--mid); }
+
+    /* Medicines list */
+    .med-order-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+    .med-order-item:last-child { border-bottom: none; }
+    .med-qty { background: var(--cream); border-radius: 8px; padding: 0.3rem 0.7rem; font-size: 0.82rem; font-weight: 600; }
+    .med-o-name { flex: 1; font-size: 0.9rem; font-weight: 500; }
+    .med-o-price { font-size: 0.9rem; font-weight: 600; color: var(--green); }
+
+    /* Map placeholder */
+    .map-placeholder {
+      background: #e8f5ed;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; margin-bottom: 1rem;
+      position: relative; overflow: hidden;
+    }
+    .map-route {
+      position: absolute; top: 50%; left: 10%; right: 10%;
+      height: 3px; background: var(--green); border-radius: 2px;
+    }
+    .map-truck { position: absolute; top: 50%; left: 62%; transform: translate(-50%, -50%); font-size: 2rem; animation: drive 3s ease-in-out infinite alternate; }
+    @keyframes drive { 0% { left: 30%; } 100% { left: 75%; } }
+    .map-dest { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); font-size: 1.5rem; }
+    .map-src { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
+
+    /* Past orders */
+    .past-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    .past-order { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+    .past-order:last-child { border-bottom: none; }
+    .po-icon { width: 42px; height: 42px; background: var(--cream); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .po-info { flex: 1; }
+    .po-id { font-weight: 600; font-size: 0.88rem; }
+    .po-date { font-size: 0.78rem; color: var(--mid); }
+    .po-items { font-size: 0.78rem; color: var(--mid); }
+    .po-right { text-align: right; }
+    .po-price { font-weight: 700; font-size: 0.95rem; }
+    .po-status { display: inline-block; font-size: 0.7rem; padding: 0.15rem 0.6rem; border-radius: 100px; background: var(--green-pale); color: var(--green); font-weight: 600; margin-top: 0.2rem; }
+    .btn-reorder { display: inline-block; margin-top: 0.4rem; font-size: 0.75rem; color: var(--green); font-weight: 600; cursor: pointer; border: none; background: none; font-family: 'DM Sans', sans-serif; }
+  </style>
+</head>
+<body style="background:#f4f6f4;padding-top:70px">
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><span class="logo-icon">✚</span><span class="logo-text">MediBuddy</span></a>
+    <ul class="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="consultation.html">Consultations</a></li>
+      <li><a href="records.html">Records</a></li>
+      <li><a href="pharmacy.html" style="color:var(--green)">Pharmacy</a></li>
+      <li><a href="chronic.html">Chronic Care</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="dashboard.html" class="btn-primary">Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-breadcrumb">
+    <a href="index.html">Home</a> / <a href="dashboard.html">Dashboard</a> / Pharmacy
+  </div>
+  <div class="page-header">
+    <h1>Medicine Delivery</h1>
+    <p>Track your orders and manage refills — medicines delivered right to your village.</p>
+  </div>
+
+  <!-- Active Order Banner -->
+  <div class="order-banner">
+    <h2>🚚 Your Order Is On The Way!</h2>
+    <p>The delivery agent is currently near Raichur city and heading towards Maski village.</p>
+    <div class="ob-row">
+      <div class="ob-id">Order #MB-2024-4521</div>
+      <div class="ob-eta">📍 Estimated Delivery: Today by 2:30 PM</div>
+    </div>
+  </div>
+
+  <div class="pharmacy-grid">
+    <!-- Left: Tracking -->
+    <div class="order-card">
+      <div style="font-size:1.05rem;font-weight:700;margin-bottom:1.25rem">📍 Live Tracking</div>
+      
+      <div class="map-placeholder">
+        <div class="map-route"></div>
+        <div class="map-src">🏪</div>
+        <div class="map-truck">🚚</div>
+        <div class="map-dest">🏠</div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1.5rem;text-align:center">MediBuddy Pharmacy, Raichur → Your Address, Maski</p>
+
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-dot-col">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-line done"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-title done">Order Received</div>
+            <div class="tl-time">Today, 9:45 AM</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot-col">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-line done"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-title done">Prescription Verified</div>
+            <div class="tl-time">Today, 10:02 AM</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot-col">
+            <div class="tl-dot done">✓</div>
+            <div class="tl-line done"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-title done">Medicines Packed</div>
+            <div class="tl-time">Today, 10:45 AM</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot-col">
+            <div class="tl-dot active">▶</div>
+            <div class="tl-line"></div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-title active">Out for Delivery</div>
+            <div class="tl-time">Today, 11:30 AM — Agent: Raju K. (📞 9845XXXXX)</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot-col">
+            <div class="tl-dot pending">○</div>
+          </div>
+          <div class="tl-content">
+            <div class="tl-title pending">Delivered</div>
+            <div class="tl-time">Expected by 2:30 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Order Details -->
+    <div class="order-card">
+      <div style="font-size:1.05rem;font-weight:700;margin-bottom:1.25rem">💊 Order Details</div>
+      
+      <div class="med-order-item">
+        <span class="med-qty">×30</span>
+        <span class="med-o-name">Metformin 500mg</span>
+        <span class="med-o-price">₹48</span>
+      </div>
+      <div class="med-order-item">
+        <span class="med-qty">×30</span>
+        <span class="med-o-name">Amlodipine 5mg</span>
+        <span class="med-o-price">₹38</span>
+      </div>
+      <div class="med-order-item">
+        <span class="med-qty">×30</span>
+        <span class="med-o-name">Telmisartan 40mg</span>
+        <span class="med-o-price">₹72</span>
+      </div>
+      
+      <div style="padding:1rem 0;border-bottom:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--mid)">
+          <span>Subtotal</span><span>₹158</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:var(--mid);margin-top:0.4rem">
+          <span>Delivery</span><span style="color:var(--green);font-weight:600">FREE</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-weight:700;font-size:1rem;margin-top:0.75rem">
+          <span>Total</span><span style="color:var(--green)">₹158</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem">
+        <div style="font-size:0.82rem;color:var(--mid);margin-bottom:0.5rem">Delivery Address</div>
+        <div style="font-size:0.9rem;font-weight:500">Meena Devi, House #14, Near Gram Panchayat, Maski, Raichur District, Karnataka — 584124</div>
+      </div>
+
+      <div style="margin-top:1.5rem;background:var(--saffron-light);border-radius:var(--radius-sm);padding:1rem;">
+        <div style="font-size:0.85rem;font-weight:600;color:#9a5500;margin-bottom:0.35rem">⏰ Refill Reminder</div>
+        <div style="font-size:0.82rem;color:var(--mid)">These medicines will last ~30 days. Set a refill reminder for May 25, 2025?</div>
+        <button class="btn-log" style="margin-top:0.75rem;padding:0.5rem;font-size:0.85rem;background:var(--saffron)">Set Reminder</button>
+      </div>
+    </div>
+
+    <!-- Past Orders -->
+    <div class="past-card" style="grid-column:span 2">
+      <div style="font-size:1.05rem;font-weight:700;margin-bottom:1.25rem">📦 Past Orders</div>
+      
+      <div class="past-order">
+        <div class="po-icon">💊</div>
+        <div class="po-info">
+          <div class="po-id">Order #MB-2024-3981</div>
+          <div class="po-date">March 26, 2025</div>
+          <div class="po-items">Metformin 500mg, Amlodipine 5mg, Telmisartan 40mg</div>
+        </div>
+        <div class="po-right">
+          <div class="po-price">₹158</div>
+          <div class="po-status">✅ Delivered</div><br>
+          <button class="btn-reorder">🔄 Reorder</button>
+        </div>
+      </div>
+
+      <div class="past-order">
+        <div class="po-icon">💊</div>
+        <div class="po-info">
+          <div class="po-id">Order #MB-2024-3445</div>
+          <div class="po-date">February 25, 2025</div>
+          <div class="po-items">Metformin 500mg, Telmisartan 40mg, Vitamin D3</div>
+        </div>
+        <div class="po-right">
+          <div class="po-price">₹195</div>
+          <div class="po-status">✅ Delivered</div><br>
+          <button class="btn-reorder">🔄 Reorder</button>
+        </div>
+      </div>
+
+      <div class="past-order">
+        <div class="po-icon">💊</div>
+        <div class="po-info">
+          <div class="po-id">Order #MB-2024-2998</div>
+          <div class="po-date">January 26, 2025</div>
+          <div class="po-items">Metformin 500mg, Amlodipine 5mg, Atorvastatin 10mg</div>
+        </div>
+        <div class="po-right">
+          <div class="po-price">₹210</div>
+          <div class="po-status">✅ Delivered</div><br>
+          <button class="btn-reorder">🔄 Reorder</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

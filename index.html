@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediBuddy — Healthcare for Every Village</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">
+      <span class="logo-icon">✚</span>
+      <span class="logo-text">MediBuddy</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#doctors">Doctors</a></li>
+      <li><a href="#chronic">Chronic Care</a></li>
+      <li><a href="#tips">Health Tips</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="login.html" class="btn-ghost">Login</a>
+      <a href="dashboard.html" class="btn-primary">Get Started</a>
+    </div>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-circle c1"></div>
+    <div class="hero-circle c2"></div>
+    <div class="hero-circle c3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🇮🇳 Serving 600,000+ Villages Across India</div>
+    <h1 class="hero-title">
+      Quality Healthcare,<br>
+      <em>Delivered to Your Door</em>
+    </h1>
+    <p class="hero-sub">Connecting rural India with top urban doctors through video consultations, digital health records, medicine delivery, and personalized chronic care — all in your language.</p>
+    <div class="hero-cta">
+      <a href="dashboard.html" class="btn-hero-primary">Book a Consultation</a>
+      <a href="#how-it-works" class="btn-hero-ghost">See How It Works →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">2.4M+</span><span class="stat-label">Consultations Done</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">18,000+</span><span class="stat-label">Verified Doctors</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">22 States</span><span class="stat-label">Covered</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="phone-mockup">
+      <div class="phone-screen">
+        <div class="call-ui">
+          <div class="call-header">
+            <span class="call-dot"></span> Live Consultation
+          </div>
+          <div class="call-avatar">
+            <div class="avatar-doc">👨‍⚕️</div>
+            <div class="avatar-label">Dr. Arjun Mehta<br><small>Cardiologist, Mumbai</small></div>
+          </div>
+          <div class="call-patient-thumb">
+            <div class="thumb-inner">👩</div>
+          </div>
+          <div class="call-controls">
+            <span class="ctrl-btn">🎤</span>
+            <span class="ctrl-btn red">📵</span>
+            <span class="ctrl-btn">📹</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-label">Core Features</div>
+    <h2 class="section-title">Everything You Need,<br>Nothing You Don't</h2>
+    <div class="features-grid">
+      <div class="feature-card card-primary">
+        <div class="feat-icon">📹</div>
+        <h3>Video Consultations</h3>
+        <p>HD video calls with certified doctors. Works on 2G networks with adaptive quality. Book same-day or schedule ahead.</p>
+        <ul class="feat-list">
+          <li>✓ Multi-language support (12 languages)</li>
+          <li>✓ Low-bandwidth mode for rural areas</li>
+          <li>✓ Prescription issued digitally</li>
+        </ul>
+        <a href="consultation.html" class="feat-link">Book Now →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">📋</div>
+        <h3>Electronic Medical Records</h3>
+        <p>Your complete health history in one secure place. Share instantly with any doctor, anywhere.</p>
+        <ul class="feat-list">
+          <li>✓ Lifetime secure storage</li>
+          <li>✓ Lab reports & prescriptions</li>
+          <li>✓ Offline access via app</li>
+        </ul>
+        <a href="records.html" class="feat-link">View Records →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">🚚</div>
+        <h3>Medicine Delivery Tracking</h3>
+        <p>Medicines dispatched within 2 hours of prescription, delivered to your village doorstep.</p>
+        <ul class="feat-list">
+          <li>✓ Real-time GPS tracking</li>
+          <li>✓ Generic & branded options</li>
+          <li>✓ Refill reminders</li>
+        </ul>
+        <a href="pharmacy.html" class="feat-link">Track Order →</a>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">📊</div>
+        <h3>Chronic Condition Manager</h3>
+        <p>Smart tracking for diabetes, hypertension, and more — with AI-powered personalized insights.</p>
+        <ul class="feat-list">
+          <li>✓ Daily health metric logging</li>
+          <li>✓ Medication reminders</li>
+          <li>✓ Trend analysis & alerts</li>
+        </ul>
+        <a href="chronic.html" class="feat-link">Manage Conditions →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-label">Process</div>
+    <h2 class="section-title">From Village to Doctor<br>in 3 Simple Steps</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📱</div>
+        <h3>Register & Describe</h3>
+        <p>Create your profile in your local language. Describe your symptoms via voice or text.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔗</div>
+        <h3>Connect with Doctor</h3>
+        <p>Get matched with a specialist within minutes. Join a video or audio call instantly.</p>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">💊</div>
+        <h3>Get Care Delivered</h3>
+        <p>Receive your digital prescription. Medicines shipped to your address same day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="doctors" id="doctors">
+  <div class="container">
+    <div class="section-label">Our Network</div>
+    <h2 class="section-title">Trusted Specialists,<br>Available 24/7</h2>
+    <div class="doctors-grid">
+      <div class="doctor-card">
+        <div class="doc-avatar">👨‍⚕️</div>
+        <h4>Dr. Arjun Mehta</h4>
+        <span class="doc-spec">Cardiologist</span>
+        <span class="doc-city">Mumbai</span>
+        <div class="doc-rating">★★★★★ <small>4.9 (312 reviews)</small></div>
+        <a href="consultation.html" class="btn-doc">Consult Now</a>
+      </div>
+      <div class="doctor-card featured">
+        <div class="doc-badge">Most Consulted</div>
+        <div class="doc-avatar">👩‍⚕️</div>
+        <h4>Dr. Priya Iyer</h4>
+        <span class="doc-spec">Diabetologist</span>
+        <span class="doc-city">Chennai</span>
+        <div class="doc-rating">★★★★★ <small>4.8 (540 reviews)</small></div>
+        <a href="consultation.html" class="btn-doc">Consult Now</a>
+      </div>
+      <div class="doctor-card">
+        <div class="doc-avatar">👨‍⚕️</div>
+        <h4>Dr. Ramesh Nair</h4>
+        <span class="doc-spec">General Physician</span>
+        <span class="doc-city">Hyderabad</span>
+        <div class="doc-rating">★★★★☆ <small>4.7 (210 reviews)</small></div>
+        <a href="consultation.html" class="btn-doc">Consult Now</a>
+      </div>
+      <div class="doctor-card">
+        <div class="doc-avatar">👩‍⚕️</div>
+        <h4>Dr. Sunita Verma</h4>
+        <span class="doc-spec">Pediatrician</span>
+        <span class="doc-city">Delhi</span>
+        <div class="doc-rating">★★★★★ <small>4.9 (189 reviews)</small></div>
+        <a href="consultation.html" class="btn-doc">Consult Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHRONIC CARE PREVIEW -->
+<section class="chronic-preview" id="chronic">
+  <div class="container chronic-inner">
+    <div class="chronic-text">
+      <div class="section-label">Chronic Care</div>
+      <h2 class="section-title">Managing Diabetes &amp;<br>Hypertension Daily</h2>
+      <p>Our smart chronic condition manager helps you track blood sugar, blood pressure, medications, and appointments — with personalized AI insights to keep you on track.</p>
+      <ul class="chronic-features">
+        <li>📈 Visual trend graphs for all metrics</li>
+        <li>⏰ Smart medication reminders</li>
+        <li>🩺 Automatic doctor alerts on dangerous readings</li>
+        <li>🏆 Weekly health score and achievement badges</li>
+        <li>📅 Appointment scheduling &amp; follow-up reminders</li>
+      </ul>
+      <a href="chronic.html" class="btn-primary" style="display:inline-block;margin-top:1.5rem;">Start Tracking Free →</a>
+    </div>
+    <div class="chronic-dashboard">
+      <div class="dash-card">
+        <div class="dash-title">Today's Overview</div>
+        <div class="dash-metrics">
+          <div class="metric-pill good">
+            <span class="metric-label">Blood Sugar</span>
+            <span class="metric-val">98 mg/dL</span>
+            <span class="metric-status">✅ Normal</span>
+          </div>
+          <div class="metric-pill warn">
+            <span class="metric-label">Blood Pressure</span>
+            <span class="metric-val">138/88</span>
+            <span class="metric-status">⚠️ Elevated</span>
+          </div>
+          <div class="metric-pill good">
+            <span class="metric-label">Medications</span>
+            <span class="metric-val">3/3 Taken</span>
+            <span class="metric-status">✅ On Track</span>
+          </div>
+        </div>
+        <div class="dash-graph">
+          <div class="graph-label">Blood Sugar — Last 7 Days</div>
+          <div class="graph-bars">
+            <div class="bar" style="height:55%"><span>Mon</span></div>
+            <div class="bar" style="height:72%"><span>Tue</span></div>
+            <div class="bar warn" style="height:88%"><span>Wed</span></div>
+            <div class="bar" style="height:60%"><span>Thu</span></div>
+            <div class="bar" style="height:50%"><span>Fri</span></div>
+            <div class="bar" style="height:65%"><span>Sat</span></div>
+            <div class="bar active" style="height:45%"><span>Sun</span></div>
+          </div>
+        </div>
+        <div class="dash-insight">
+          💡 <strong>AI Insight:</strong> Your sugar levels are lowest on Sundays. Consider a light walk after lunch on weekdays.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH TIPS -->
+<section class="health-tips" id="tips">
+  <div class="container">
+    <div class="section-label">Awareness</div>
+    <h2 class="section-title">Health Tips &amp; Resources</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-cat">Diabetes</div>
+        <h4>5 Foods That Control Blood Sugar Naturally</h4>
+        <p>Bitter gourd, methi seeds, and amla are proven to help regulate glucose. Learn how to include them in daily meals.</p>
+        <span class="tip-read">4 min read →</span>
+      </div>
+      <div class="tip-card featured-tip">
+        <div class="tip-cat">Hypertension</div>
+        <h4>How to Check Your Blood Pressure at Home Accurately</h4>
+        <p>Incorrect technique is the #1 cause of false readings. Follow this step-by-step guide used by CHOs across rural India.</p>
+        <span class="tip-read">6 min read →</span>
+      </div>
+      <div class="tip-card">
+        <div class="tip-cat">Women's Health</div>
+        <h4>Understanding Anaemia in Rural Women</h4>
+        <p>Over 57% of rural women are anaemic. Know the signs, causes, and simple iron-rich diet solutions.</p>
+        <span class="tip-read">5 min read →</span>
+      </div>
+      <div class="tip-card">
+        <div class="tip-cat">Child Health</div>
+        <h4>Vaccination Schedule Every Parent Must Know</h4>
+        <p>Government-provided vaccines are free and life-saving. Here's the complete schedule from birth to age 5.</p>
+        <span class="tip-read">3 min read →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="container">
+    <h2>Start Your Healthcare Journey Today</h2>
+    <p>Free registration. First consultation at ₹0. Available in your language.</p>
+    <div class="cta-actions">
+      <a href="dashboard.html" class="btn-hero-primary">Open App</a>
+      <a href="tel:+918001234567" class="btn-hero-ghost">📞 Call Helpline</a>
+    </div>
+    <div class="cta-langs">Available in: हिंदी · తెలుగు · தமிழ் · বাংলা · ಕನ್ನಡ · मराठी · ਪੰਜਾਬੀ</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <div class="logo"><span class="logo-icon">✚</span><span class="logo-text">MediBuddy</span></div>
+      <p>Bridging the healthcare gap between rural India and quality medical expertise.</p>
+      <div class="footer-badges">
+        <span class="badge">ABDM Compliant</span>
+        <span class="badge">ISO 27001</span>
+        <span class="badge">HIPAA Ready</span>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="consultation.html">Video Consultation</a></li>
+        <li><a href="records.html">Medical Records</a></li>
+        <li><a href="pharmacy.html">Medicine Delivery</a></li>
+        <li><a href="chronic.html">Chronic Care</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Join as Doctor</a></li>
+        <li><a href="#">CSR Program</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h5>Support</h5>
+      <ul>
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Community Health Officers</a></li>
+        <li><a href="tel:+918001234567">📞 1800-123-4567</a></li>
+        <li><a href="#">WhatsApp Support</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 MediBuddy Technologies Pvt. Ltd. | Registered under MoHFW, Govt. of India</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
